@@ -1,57 +1,31 @@
 
+<?php 
+include('template/header.php'); 
 
+$shopes = $_GET['search'];
 
+ include('db_connect.php');
 
-<?php
+$sql = "SELECT * FROM fations  WHERE  name  LIKE '%$shopes%' ";
+ 
+$result = mysqli_query($conn, $sql);
+
+$shopes = mysqli_fetch_all($result, MYSQLI_ASSOC);
+  echo "<table ><tr class='brand-text'><th>ID</th><th> Name</th><th>Address</th><th>ShopeType</th></tr>";
+foreach ($shopes as $shope){
+
+    echo "<tr class='white'><td>".htmlspecialchars($shope['id'])."</td><td>".htmlspecialchars($shope['name'])."</td><td>". htmlspecialchars($shope['address'])."</td><td>". htmlspecialchars($shope['shopeType'])."</td></tr>";
+  }
+  echo "</table>";
+ 
+mysqli_free_result($result);
+mysqli_close($conn);
+
+?>
 
  
 
-include('db_connect.php');
-$name =$_POST['searchShope'];
-
-    $sql="SELECT * FROM fations
-    WHERE name LIKE '%{$name}%' ";
-
-  
-$result = mysqli_query($con,$sql );
-$shopes = mysqli_fetch_all($result, MYSQLI_ASSOC);
-mysqli_free_result($result);
-
-    mysqli_close($con);
-  
-
-?>
-<!DOCTYPE html>
-
-<html lang="en" dir="ltr">
-
-  <?php include('template/header.php'); ?>
-  <section class="container gray-text">
-
-    <div class="container">
-    <div class="row">
-
-      <?php foreach ($shopes as $shope){ ?>
-        <div class="col s4 md3">
-          <div class="center card z-depth-0">
-            <img src="img/fations.png" alt="shope img" class="pizza">
-            <div class="center card-content center">
-              <h4 class="brand-text"><?php echo htmlspecialchars($shope['name']); ?></h4>
-              <h6 ><?php echo htmlspecialchars($shope['address']); ?></h6>
-              <h6 ><?php echo htmlspecialchars($shope['shopeType']); ?></h6>
-            </div>
-            <div class="card-action right-align">
-              <a class="brand-text" href="details.php?id=<?php echo $shope['id']?>">more info!</a>
-            </div>
-          </div>
-        </div>
-      <?php } ?>
-
-
-
-    </div>
-  </div>
-     <?php include('template/footer.php'); ?>
-
-
+<?php include('template/footer.php'); ?>
 </html>
+    
+ 
