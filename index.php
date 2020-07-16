@@ -25,6 +25,12 @@ mysqli_close($conn);
 <html>
 
   <?php include('template/header.php'); ?>
+     <div class="hero mb-5">
+     
+      <form action="reasultSearch.php" method="get">
+        <input class="brand-text" type="text" name="search"  placeholder="Search ...">
+      </form>
+      </div>
   <h4 class="center grey-text"> Fashions Shope </h4>
   <div class="container">
     <div class="row">
